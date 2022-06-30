@@ -1,21 +1,13 @@
 import androidx.compose.desktop.ui.tooling.preview.Preview
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Close
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.Menu
-import androidx.compose.runtime.*
-import androidx.compose.ui.Modifier
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.lightColors
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
-import kotlinx.coroutines.launch
+import androidx.compose.ui.window.rememberWindowState
 import ui.Ui_Main
 
 @Composable
@@ -29,10 +21,15 @@ fun App() {
 }
 
 fun main() = application {
+    val windowState = rememberWindowState()
+    val dpSize : DpSize  = DpSize(Window_Width, Window_Heigth)
+    windowState.size = dpSize
     Window(
         onCloseRequest = ::exitApplication,
         title = AppTilte,
         icon = painterResource(AppIcon),
+        resizable = false,
+        state = windowState
     ) {
         App()
     }
