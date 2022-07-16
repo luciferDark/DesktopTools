@@ -10,8 +10,8 @@ import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.ll.lib.utils.FileUtils
 import kotlinx.coroutines.launch
-
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -25,7 +25,8 @@ fun ShowPage() {
     BackdropScaffold(
         scaffoldState = scaffoldState,
         appBar = {
-
+            println("==this project path is ${FileUtils.PROJECT_PATH}")
+            println("==this project config path is ${FileUtils.PROJECT_CONFIG_PATH}")
         },
         /*  appBar = {
               TopAppBar(
@@ -72,13 +73,20 @@ fun ShowPage() {
                 }
             }
         },
+        modifier = Modifier.padding(0.dp, 2.dp, 0.dp, 50.dp),
         frontLayerContent = {
             Column {
                 Text("Selection: ${selection.value}", modifier = Modifier.padding(16.dp, 4.dp, 16.dp, 4.dp))
                 LazyColumn {
-                    items(50) {
+                    items(22) {
                         ListItem(
                             text = { Text("Selection: ${selection.value} =>Item $it") },
+                            secondaryText = {
+                                Text("secondaryText: ${selection.value} =>Item $it")
+                            },
+                            overlineText = {
+                                Text("overlineText: ${selection.value} =>Item $it")
+                            },
                             icon = {
                                 Icon(
                                     Icons.Default.Favorite,

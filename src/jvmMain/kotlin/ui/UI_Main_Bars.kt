@@ -46,37 +46,3 @@ fun UI_Main_FloatButton(onClick: ((Boolean) -> Unit)? = null) {
             onClick?.invoke(openDialog)
         })
 }
-
-@OptIn(ExperimentalMaterialApi::class)
-@Composable
-fun UI_Main_Dialog(
-    openDialog: Boolean,
-    onDismissRequestCallback: ((Boolean) -> Unit)?,
-    onConfirmCallback: ((Boolean) -> Unit)?
-) {
-    if (openDialog) {
-        AlertDialog(
-            onDismissRequest = {
-//                onDismissRequestCallback?.invoke(false)
-            },
-            title = {
-                Text(text = "Title")
-            },
-            text = {
-                Text(
-                    "This area typically contains the supportive text ,which presents the details regarding the Dialog's purpose.",
-                    modifier = Modifier.width(300.dp)
-                )
-            },
-            confirmButton = {
-                TextButton(
-                    onClick = {
-                        onConfirmCallback?.invoke(false)
-                    }
-                ) {
-                    Text("OK")
-                }
-            }
-        )
-    }
-}

@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.material.FabPosition
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.*
+import views.DialogView
 
 @Composable
 fun Ui_Main() {
@@ -31,14 +32,13 @@ fun Ui_Main() {
             }
         ) {
             Column {
-               /* Button(onClick = {
-                    text = "Hello, Desktop!"
-                }) {
-                    Text(text)
-                }*/
                 ShowPage()
             }
-            UI_Main_Dialog(openDialog, { openDialog = it}){
+            DialogView(
+                title = "弹窗",
+                text = "弹窗描述文本",
+                openDialog = openDialog,
+                onDismissRequestCallback = { openDialog = it}){
                 openDialog = it
             }
         }
