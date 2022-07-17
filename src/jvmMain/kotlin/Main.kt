@@ -8,7 +8,12 @@ import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
+import models.TabModels
 import ui.Ui_Main
+import kotlin.reflect.KClass
+import kotlin.reflect.*
+import kotlin.reflect.full.createInstance
+import kotlin.reflect.full.declaredFunctions
 
 @Composable
 @Preview
@@ -17,6 +22,7 @@ fun App() {
         colors = lightColors(primary = Color.Black)
     ) {
         Ui_Main()
+        Test()
     }
 }
 
@@ -32,5 +38,15 @@ fun main() = application {
         state = windowState
     ) {
         App()
+    }
+}
+
+fun Test(){
+    println("Test")
+    val testClass = Class.forName("models.TabModels").kotlin
+
+    var test = testClass.createInstance()
+    testClass.declaredFunctions.forEach{
+        println("test 方法：${it.name}")
     }
 }
