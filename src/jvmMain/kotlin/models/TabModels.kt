@@ -40,4 +40,6 @@ class TabModels(tabs: MutableMap<String, MainUIPages> = mutableMapOf()) {
 
     fun getTab(key: String) = tabs[key]
 
+    fun printStr(msg : String) = println("call ${this::class.simpleName} method printStr, arg = $msg")
+
 }

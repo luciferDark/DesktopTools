@@ -14,6 +14,7 @@ import kotlin.reflect.KClass
 import kotlin.reflect.*
 import kotlin.reflect.full.createInstance
 import kotlin.reflect.full.declaredFunctions
+import kotlin.reflect.full.functions
 
 @Composable
 @Preview
@@ -44,9 +45,12 @@ fun main() = application {
 fun Test(){
     println("Test")
     val testClass = Class.forName("models.TabModels").kotlin
+//    val testClass = TabModels::class
 
     var test = testClass.createInstance()
     testClass.declaredFunctions.forEach{
         println("test 方法：${it.name}")
     }
+    var functionInvoke = testClass.functions.find{ it.name == "printStr"}
+    functionInvoke?.call(test, "call function")
 }
