@@ -1,7 +1,9 @@
 package models
 
 import interfaces.MainUIPages
+import reflects.ProjectAnnotation
 
+@ProjectAnnotation
 class TabModels(tabs: MutableMap<String, MainUIPages> = mutableMapOf()) {
     companion object {
         private var instance: TabModels? = null

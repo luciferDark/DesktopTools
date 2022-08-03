@@ -1,11 +1,11 @@
 package ui
 
-import Test
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.FabPosition
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.*
 import com.ll.lib.utils.FileUtils
+import reflects.ApplicationContext
 import views.DialogView
 
 @Composable
@@ -24,6 +24,7 @@ fun Ui_Main() {
             floatingActionButton = {
                 UI_Main_FloatButton {
                     println("UI_Main_FloatButton onClick:")
+//                    ApplicationContext.instance().scan()
                     openDialog = it
                 }
             },
@@ -42,9 +43,11 @@ fun Ui_Main() {
                 openDialog = openDialog,
                 onDismissRequestCallback = { openDialog = it }) {
                 openDialog = it
-                Test()
                 println("==this project path is ${FileUtils.PROJECT_PATH}")
                 println("==this project config path is ${FileUtils.PROJECT_CONFIG_PATH}")
+
+//                Test()
+                ApplicationContext.instance().scan()
             }
         }
     }
