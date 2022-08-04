@@ -3,6 +3,7 @@ package reflects
 import models.TabModels
 import org.reflections.Reflections
 import java.io.File
+import java.lang.reflect.Method
 import kotlin.reflect.full.createInstance
 import kotlin.reflect.full.declaredFunctions
 import kotlin.reflect.full.functions
@@ -61,7 +62,7 @@ class ApplicationContext {
                     it.isAnnotationPresent(ProjectAnnotation::class.java)
                 }
                 ?.forEach {
-                    postHandleClazz(it)
+                    postHandleClass(it)
                 }
         }
     }
@@ -88,16 +89,43 @@ class ApplicationContext {
     /**
      * 对扫描结果的类做进一步处理
      */
-    fun postHandleClazz(clazz : Class<*>){
+    fun postHandleClass(clazz : Class<*>){
         var annotation = clazz.getAnnotation(ProjectAnnotation::class.java)
         val annotationValue = annotation.value
+
+        if(!projectBeansClassDefine.containsKey(clazz.name)){
+            projectBeansClassDefine.put(clazz.name, ClassBeanDefine(clazz.name, clazz))
+        }
+
+        val any = clazz.kotlin.createInstance()
+        var isProjectInterface = false
+        clazz.interfaces.map{
+            if(it.name.equals(ProjectInterface::class.java)) it
+        }.forEach{
+            onPostInitFinish(clazz, any)
+        }
         when(annotationValue) {
             ProjectAnnotationType.NORMAL -> {
                 println("${clazz.name} is NORMAL type")
+                if(!projectBeans.containsKey(clazz.name)){
+                    projectBeans.put(clazz.name, any)
+                }
             }
             ProjectAnnotationType.INSTANCE -> {
                 println("${clazz.name} is INSTANCE type")
+                if(!projectSingleBeans.containsKey(clazz.name)){
+                    projectSingleBeans.put(clazz.name, any)
+                }
             }
         }
     }
+
+    private fun onPostInitFinish(clazz: Class<*>, any: Any?) {
+        clazz.declaredMethods.filter {
+            it.name.equals("onPostInit")
+        }.forEach{
+            it.invoke(any)
+        }
+    }
+
 }
