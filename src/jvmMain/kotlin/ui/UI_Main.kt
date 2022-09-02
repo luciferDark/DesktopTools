@@ -1,5 +1,6 @@
 package ui
 
+import Test
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.FabPosition
 import androidx.compose.material.Scaffold
@@ -41,6 +42,7 @@ fun Ui_Main() {
                 openDialog = openDialog,
                 onDismissRequestCallback = { openDialog = it }) {
                 openDialog = it
+                Test()
                 println("==this project path is ${FileUtils.PROJECT_PATH}")
                 println("==this project config path is ${FileUtils.PROJECT_CONFIG_PATH}")
             }
