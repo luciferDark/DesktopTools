@@ -6,4 +6,9 @@ package reflects
  */
 @Target(AnnotationTarget.CLASS)
 @Retention(AnnotationRetention.RUNTIME)
-annotation class ProjectAnnotation
+annotation class ProjectAnnotation(val value : ProjectAnnotationType = ProjectAnnotationType.NORMAL)
+
+public enum class ProjectAnnotationType {
+    INSTANCE, //单例模式
+    NORMAL,   //默认实例类
+}

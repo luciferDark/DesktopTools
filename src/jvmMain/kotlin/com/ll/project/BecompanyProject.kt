@@ -1,7 +1,8 @@
 package com.ll.project
 
 import reflects.ProjectAnnotation
+import reflects.ProjectAnnotationType
 
-@ProjectAnnotation
+@ProjectAnnotation(ProjectAnnotationType.INSTANCE)
 class BecompanyProject {
 }

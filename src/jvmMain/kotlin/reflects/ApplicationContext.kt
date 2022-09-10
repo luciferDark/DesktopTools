@@ -89,6 +89,15 @@ class ApplicationContext {
      * 对扫描结果的类做进一步处理
      */
     fun postHandleClazz(clazz : Class<*>){
-        println("${clazz.name}")
+        var annotation = clazz.getAnnotation(ProjectAnnotation::class.java)
+        val annotationValue = annotation.value
+        when(annotationValue) {
+            ProjectAnnotationType.NORMAL -> {
+                println("${clazz.name} is NORMAL type")
+            }
+            ProjectAnnotationType.INSTANCE -> {
+                println("${clazz.name} is INSTANCE type")
+            }
+        }
     }
 }
